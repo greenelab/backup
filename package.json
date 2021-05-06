@@ -8,7 +8,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "node ./index.js"
+    "archive": "node ./archive.js",
+    "clone": "node ./clone.js && bash ./clone.sh"
   },
   "dependencies": {
     "@octokit/rest": "^18.5.3",
