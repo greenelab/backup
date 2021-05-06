@@ -16,7 +16,6 @@
     "chalk": "^4.1.1",
     "dotenv": "^8.2.0",
     "node-fetch": "^2.6.1",
-    "nodegit": "^0.27.0",
     "promise-retry": "^2.0.1"
   }
 }
