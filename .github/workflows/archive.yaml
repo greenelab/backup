@@ -9,7 +9,7 @@ jobs:
   run-bot:
     runs-on: ubuntu-latest
       # secrets to environment variables
-    environment: preprint-bot
+    environment: backup
     env:
       SOFTWARE_HERITAGE_TOKEN: ${{ secrets.SOFTWARE_HERITAGE_TOKEN }}
     steps:

@@ -1,3 +1,5 @@
+git clone mkdir -p clone
+git clone cd clone
 git clone https://github.com/greenelab/TDM
 git clone https://github.com/greenelab/TDM.wiki.git
 git clone https://github.com/greenelab/greedy-geneset-selection

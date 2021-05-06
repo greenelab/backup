@@ -10,14 +10,17 @@ const cloneRepos = async (repos) => {
   log();
   info(`Cloning repos`);
 
-  let lines = [`mkdir -p ${dir}`, `cd ${dir}`];
+  let lines = [];
   for (const { html_url, wiki_url } of repos) {
     lines.push(html_url);
     lines.push(wiki_url);
   }
   lines = lines.filter((line) => line).map((line) => `git clone ${line}`);
+  lines = [`mkdir -p ${dir}`, `cd ${dir}`].concat(lines);
   fs.writeFile("clone.sh", lines.join("\n"), () => null);
 };
+
+// clone script
 const clone = async () => {
   const repos = await getRepos();
   await cloneRepos(repos);
