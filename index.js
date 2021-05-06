@@ -10,17 +10,19 @@ const archiveLimit = 60;
 // organization name, e.g. "greenelab"
 const organization =
   (process.env.GITHUB_REPOSITORY || "").split("/")[0] ||
-  process.env.ORGANIZATION ||
+  process.env.GITHUB_ORGANIZATION ||
   "";
 
+// auth tokens
 // read from GitHub Actions automatically, or from .env if running locally
-const token = process.env.GITHUB_TOKEN || process.env.TOKEN || "";
+const githubToken = process.env.GITHUB_TOKEN || "";
+const softwareHeritageToken = process.env.SOFTWARE_HERITAGE_TOKEN || "";
 
 // don't show stack trace for errors
 process.env.NODE_ENV = "production";
 
 // GitHub API helper
-const octokit = new Octokit({ auth: token });
+const octokit = new Octokit({ auth: githubToken });
 
 // loggers
 const log = (message = "") => console.log(message);
@@ -78,6 +80,10 @@ const archiveRepos = async (repos) => {
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // submit a repo url to be archived at SoftwareHeritage.org
+const headers = softwareHeritageToken
+  ? { Authorization: `Bearer ${softwareHeritageToken}` }
+  : {};
+console.log(headers);
 const archiveRepo = async (repo) => {
   const name = repo.split("/").pop();
   log();
@@ -88,7 +94,7 @@ const archiveRepo = async (repo) => {
   try {
     // check for existing save
     const url = `https://archive.softwareheritage.org/api/1/origin/save/git/url/${repo}/`;
-    const options = { method: "GET" };
+    const options = { method: "GET", headers };
     const response = await (await fetch(url, options)).json();
 
     // if repo recently archived, finish without archiving
@@ -117,13 +123,13 @@ const archiveRepo = async (repo) => {
 
   // retries
   for (let attempt = 0; attempt < delays.length; attempt++) {
-    log(`Attempt #${attempt + 1}`);
+    log(`Attempt ${attempt + 1}`);
 
     try {
       {
         // submit to API to be archived
         const url = `https://archive.softwareheritage.org/api/1/origin/save/git/url/${repo}/`;
-        const options = { method: "POSt" };
+        const options = { method: "POST", headers };
         const response = await (await fetch(url, options)).json();
 
         // catch rate-limit error
