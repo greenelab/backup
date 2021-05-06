@@ -1,8 +1,11 @@
 // packages
 require("dotenv").config();
+const fs = require("fs");
+const path = require("path");
 const fetch = require("node-fetch");
 const { Octokit } = require("@octokit/rest");
 const chalk = require("chalk");
+const git = require("nodegit");
 
 // don't archive repo if last archived less than this many minutes ago
 const archiveLimit = 60;
@@ -83,9 +86,8 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const headers = softwareHeritageToken
   ? { Authorization: `Bearer ${softwareHeritageToken}` }
   : {};
-console.log(headers);
 const archiveRepo = async (repo) => {
-  const name = repo.split("/").pop();
+  const name = path.basename(repo);
   log();
   info(`Archiving repo ${name}`);
 
@@ -165,4 +167,40 @@ const archive = async (organization) => {
   await archiveRepos(repos);
 };
 
-archive(organization);
+// clone single repo
+const cloneRepo = async (repo, dir) => {
+  log();
+  info(`Cloning repo ${repo}`);
+
+  try {
+    await git.Clone(repo, path.join(dir, path.basename(repo)));
+  } catch (message) {
+    log(message);
+    error("Error cloning. Skipping.");
+  }
+};
+
+// clone repos
+const cloneRepos = async (repos) => {
+  const dir = path.join(process.cwd(), "clone");
+  log();
+  info(`Cloning repos to ${dir}`);
+
+  try {
+    fs.mkdirSync(dir);
+  } catch (error) {}
+
+  for (const { html_url, wiki_url } of repos) {
+    await cloneRepo(html_url, dir);
+    await cloneRepo(wiki_url, dir);
+  }
+};
+
+// backup org's repos by cloning them all locally
+const clone = async (organization) => {
+  const repos = await getRepos(organization);
+  await cloneRepos(repos);
+};
+
+// archive(organization);
+clone(organization);
