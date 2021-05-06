@@ -3,7 +3,7 @@ const { getRepos } = require("./github");
 const { log, info } = require("./util");
 
 // clone directory
-const dir = "clone" 
+const dir = "clone";
 
 // clone org's repos locally
 const cloneRepos = async (repos) => {
