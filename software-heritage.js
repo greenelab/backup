@@ -13,7 +13,7 @@ const archiveRepos = async (repos) => {
 
   for (const { html_url, wiki_url } of repos) {
     await archiveRepo(html_url);
-    await archiveRepo(wiki_url);
+    // await archiveRepo(wiki_url);
   }
 };
 
