@@ -56,7 +56,7 @@ const archiveRepo = async (repo) => {
   // save repo
   log("Saving");
   // retry delays, in minutes
-  const delays = [0.25, 0.5, 1, 5, 10, 20, 30, 40, 50, 60, 120];
+  const delays = [10, 30, 60, 90, 120];
 
   // retries
   for (let attempt = 0; attempt < delays.length; attempt++) {
@@ -73,15 +73,14 @@ const archiveRepo = async (repo) => {
         if (response.exception === "Throttled") {
           error(response.reason);
           const minutes = delays[attempt];
-          if (minutes <= 1) log(`Trying again in ${minutes * 60} seconds`);
-          else log(`Trying again in ${minutes} minutes`);
+          log(`Trying again in ${minutes} minutes`);
           await sleep(minutes * 60 * 1000);
           continue;
         }
 
         // if accepted, finish
         if (response.save_request_status === "accepted") {
-          success("Successfully archived");
+          success("Successfully submitted for archiving");
           return;
         }
 
