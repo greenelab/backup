@@ -11,8 +11,8 @@ const archiveRepos = async (repos) => {
   log();
   info(`Archiving repos at SoftwareHeritage.org`);
 
-  for (const { html_url, wiki_url } of repos) {
-    await archiveRepo(html_url);
+  for (const [index, { html_url, wiki_url }] of Object.entries(repos)) {
+    await archiveRepo(html_url, index, repos.length);
     // await archiveRepo(wiki_url);
   }
 };
@@ -21,10 +21,10 @@ const archiveRepos = async (repos) => {
 const headers = softwareHeritageToken
   ? { Authorization: `Bearer ${softwareHeritageToken}` }
   : {};
-const archiveRepo = async (repo) => {
+const archiveRepo = async (repo, index, length) => {
   const name = path.basename(repo);
   log();
-  info(`Archiving repo ${name}`);
+  info(`Archiving repo ${name}, ${index + 1} of ${length}`);
 
   // check if repo already saved
   log(`Checking existing saves`);
