@@ -12,7 +12,7 @@ const archiveRepos = async (repos) => {
   info(`Archiving repos at SoftwareHeritage.org`);
 
   for (const [index, { html_url, wiki_url }] of Object.entries(repos)) {
-    await archiveRepo(html_url, index, repos.length);
+    await archiveRepo(html_url, Number(index), repos.length);
     // await archiveRepo(wiki_url);
   }
 };
