@@ -11,10 +11,12 @@ const archiveRepos = async (repos) => {
   log();
   info(`Archiving repos at SoftwareHeritage.org`);
 
-  for (const [index, { html_url, wiki_url }] of Object.entries(repos)) {
-    await archiveRepo(html_url, Number(index), repos.length);
-    // await archiveRepo(wiki_url);
-  }
+  const urls = repos
+    .reduce((urls, { html_url, wiki_url }) => [...urls, html_url, wiki_url], [])
+    .filter((url) => url);
+
+  for (const [index, url] of Object.entries(urls))
+    await archiveRepo(url, Number(index), urls.length);
 };
 
 // submit a repo url to be archived at SoftwareHeritage.org

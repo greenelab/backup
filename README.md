@@ -2,11 +2,11 @@ Backup methods for the entire organization on GitHub.
 
 ### Archive
 
-Looks up all the organization's repos and submits them to [Software Heritage](https://softwareheritage.org/).
+Looks up all the organization's repos and wikis, and submits them to [Software Heritage](https://softwareheritage.org/).
 
 ### Clone
 
-Looks up all the organization's repos and clones them locally.
+Looks up all the organization's repos and wikis, and clones them locally.
 
 ### Run Locally
 
