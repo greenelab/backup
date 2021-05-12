@@ -27,7 +27,7 @@ const getRepos = async () => {
     else repos = repos.concat(results);
   }
 
-  // count public, private, wikis
+  // count public and private
   const public = repos.filter((repo) => !repo.private).length;
   const private = repos.filter((repo) => repo.private).length;
   success(`Found ${repos.length} repos, ${public} public, ${private} private`);
