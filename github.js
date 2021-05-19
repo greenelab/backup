@@ -1,5 +1,5 @@
 const { Octokit } = require("@octokit/rest");
-const { githubToken, githubOrganization } = require("./vars");
+const { githubToken, githubOrganization } = require("./keys");
 const { log, success, info, error } = require("./util");
 const simpleGit = require("simple-git");
 const git = simpleGit();
