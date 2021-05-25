@@ -1,6 +1,6 @@
 const path = require("path");
 const fetch = require("node-fetch");
-const { softwareHeritageToken } = require("./vars");
+const { softwareHeritageToken } = require("./keys");
 const { log, success, info, warning, error, sleep } = require("./util");
 
 // don't archive repo if last archived less than this many minutes ago
