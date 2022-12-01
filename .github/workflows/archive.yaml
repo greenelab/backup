@@ -1,9 +1,9 @@
 name: Run Archive
 
 on:
-  # every month on the 1st, 8th, 15th, and 22nd (~every week)
+  # once a month
   schedule:
-    - cron: "0 0 1,8,15,22 * *"
+    - cron: "0 0 1 * *"
   # on demand
   workflow_dispatch:
 
