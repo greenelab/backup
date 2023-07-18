@@ -28,6 +28,7 @@ This has several benefits over the scripts contained in this repo:
 - Only runs when there are changes to a repo, not periodically.
 - Only runs on the repo that has changed, instead of all of the repos in the org.
 - Don't have to worry about GitHub Actions eventually stopping periodic runs in stale repos (see note below).
+- Possibly not subject to, or avoids (due to only running when and where needed), Software Heritage's aggressive rate-limiting, which you'll likely run into with the archive script if you have a significant number of repos.
 - Don't need a dedicated fork of this repo in your org, just need to configure a few org settings.
 
 ## Usage
