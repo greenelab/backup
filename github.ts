@@ -12,6 +12,7 @@ const headers = { accept: "application/vnd.github+json" };
 
 /** return list of repo urls */
 const getRepos = async () => {
+  /** get current user (in a github actions permissions compatible way) */
   const user = (
     await octokit.rest.users.getByUsername({ headers, username: githubUser })
   ).data;
@@ -20,7 +21,7 @@ const getRepos = async () => {
 
   /** repo details returned from octokit */
   type Repo = Awaited<
-    ReturnType<typeof octokit.rest.repos.listForAuthenticatedUser>
+    ReturnType<typeof octokit.rest.repos.listForUser>
   >["data"][number] & { wiki_url?: string };
 
   /** collect repos */
@@ -28,13 +29,14 @@ const getRepos = async () => {
 
   /** go through pages of repos with hard limit */
   for (let page = 1; page < 100; page++) {
-    /** list current page of repos for user or org */
+    /** common options */
+    const options = { headers, per_page: 100, page };
+
+    /** get current page of repos for user or org */
     const results: Repo[] = (
-      await octokit.rest.repos.listForAuthenticatedUser({
-        headers,
-        per_page: 100,
-        page,
-      })
+      await (user.type === "Organization"
+        ? octokit.rest.repos.listForOrg({ ...options, org: githubUser })
+        : octokit.rest.repos.listForUser({ ...options, username: githubUser }))
     ).data;
 
     /** stop if reached end page, else add to list of repos */
