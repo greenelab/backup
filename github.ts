@@ -12,10 +12,7 @@ const headers = { accept: "application/vnd.github+json" };
 
 /** return list of repo urls */
 const getRepos = async () => {
-  /** get current authenticated party */
-  const user = (await octokit.rest.users.getAuthenticated({ headers })).data;
-
-  info(`Fetching repos for ${githubUser} (${user.type})`);
+  info(`Fetching repos for ${githubUser}`);
 
   /** repo details returned from octokit */
   type Repo = Awaited<
