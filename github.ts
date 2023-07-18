@@ -32,10 +32,11 @@ const getRepos = async () => {
     /** common options */
     const options = { headers, per_page: 100, page };
 
-    /** get current page of repos for user or org */
+    /** get current page of repos */
     const results: Repo[] = (
       await (user.type === "Organization"
-        ? octokit.rest.repos.listForOrg({ ...options, org: githubUser })
+        ? /** use appropriate list func (in a github actions permissions compatible way) */
+          octokit.rest.repos.listForOrg({ ...options, org: githubUser })
         : octokit.rest.repos.listForUser({ ...options, username: githubUser }))
     ).data;
 

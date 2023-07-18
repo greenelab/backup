@@ -42,7 +42,8 @@ This has several benefits over the scripts contained in this repo:
 ### Run on GitHub Actions
 
 1. Fork this repository to your own user or organization.
-2. The GitHub Actions configuration included in this repo will automatically [run the **archive** script periodically](../../actions).
+2. In your forked repo's settings, [grant GitHub Actions workflows read and write permissions](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#setting-the-permissions-of-the-github_token-for-your-repository).
+3. The GitHub Actions workflow included in the repo will automatically [run the **archive** script periodically](../../actions).
 
 **Note**: GitHub eventually stops running periodic (cron) workflows if your repo hasn't had any activity in a few months.
 To get around this, you can either make a commit to your repo every so often, or you can [manually trigger the run of the **archive** workflow](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow).
@@ -64,12 +65,16 @@ When running on GitHub actions, [create a repository secret](https://docs.github
 #### `GITHUB_USER`
 
 The GitHub user or organization you want to backup, e.g., "greenelab".
+
 When running on GitHub Actions, this can be omitted to automatically use the current user or organization running the workflow.
 
 #### `GITHUB_TOKEN`
 
 A [GitHub authentication token](https://octokit.github.io/rest.js/v18#authentication), such as a [personal access token](https://github.com/settings/tokens/new).
+
 When running on GitHub Actions, this can be omitted to automatically use the [GitHub Actions token](https://docs.github.com/en/actions/security-guides/automatic-token-authentication).
+This has the caveat of only having permissions to see _public repos_.
+You could use a personal access token to allow the scripts to see private repos, but Software Heritage cannot archive private repos anyway.
 
 #### `SOFTWARE_HERITAGE_TOKEN`
 
