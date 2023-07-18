@@ -14,7 +14,7 @@ This repo contains methods to look up all of a GitHub organization's repos and w
 ### Run on GitHub Actions
 
 1. Fork this repository to your own organization.
-2. The GitHub Actions configuration included in this repo will automatically [run the **archive** script periodically](/actions).
+2. The GitHub Actions configuration included in this repo will automatically [run the **archive** script periodically](../../actions).
 
 **Note**: GitHub eventually stops running periodic Actions if your repo hasn't had any activity in a few months.
 To get around this, you can either make a commit to your repo every so often, or you can [manually trigger the run of the **archive** workflow](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow).
