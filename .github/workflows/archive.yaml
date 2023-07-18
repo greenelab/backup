@@ -1,27 +1,35 @@
-name: Run Archive
+name: Archive
 
 on:
-  # once a month
+  # run once a month
   schedule:
     - cron: "0 0 1 * *"
-  # on demand
+  # run on manual trigger
   workflow_dispatch:
 
+env:
+  FORCE_COLOR: true
+  GITHUB_USER: "${{ secrets.GITHUB_USER }}"
+  GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+  SOFTWARE_HERITAGE_TOKEN: "${{ secrets.SOFTWARE_HERITAGE_TOKEN }}"
+
 jobs:
-  run-bot:
+  archive:
+    timeout-minutes: 60
     runs-on: ubuntu-latest
-      # secrets to environment variables
-    environment: backup
-    env:
-      SOFTWARE_HERITAGE_TOKEN: ${{ secrets.SOFTWARE_HERITAGE_TOKEN }}
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
+
       - name: Set up Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: "12.x"
+          node-version: "18"
+
       - name: Install packages
-        run: yarn install
+        run: npm install
+
       - name: Run archive
-        run: yarn archive
+        run: npm run archive
+        timeout-minutes: 60
