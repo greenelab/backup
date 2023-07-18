@@ -20,14 +20,14 @@ Combining these two features, you can easily set up automatic archival for all o
 2. Look for the "webhooks" settings.
 3. Add a new webhook.
    1. Set the "payload URL" to be [Software Heritage's API endpoint](https://docs.softwareheritage.org/user/save_code_now/webhooks/index.html#github).
-   2. Set the "content type" as "application/json".
+   2. Set the "content type" to "application/json".
    3. Change what events trigger the webhook as needed.
 
 This has several benefits over the scripts contained in this repo:
 
 - Only runs when there are changes to a repo, not periodically.
 - Only runs on the repo that has changed, instead of all of the repos in the org.
-- Don't have to worry about GitHub eventually stopping periodic runs in stale repos (see note below).
+- Don't have to worry about GitHub Actions eventually stopping periodic runs in stale repos (see note below).
 - Don't need a dedicated fork of this repo in your org, just need to configure a few org settings.
 
 ## Usage
