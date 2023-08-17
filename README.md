@@ -5,7 +5,7 @@ This repo contains scripts to look up all of a GitHub user's or organization's r
 ## Better Alternative
 
 **Before you use these scripts**, see if this **better alternative works** for you.
-This has the following limitations:
+The alternative has the following limitations:
 
 - Only works for GitHub organizations, not users.
 - Doesn't backup wikis.
