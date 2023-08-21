@@ -23,6 +23,8 @@ Combining these two features, you can easily set up automatic archival for all o
    2. Set the "content type" to "application/json".
    3. Change what events trigger the webhook as needed.
 
+And that's it!
+
 This has several benefits over the scripts contained in this repo:
 
 - Only runs when there are changes to a repo, not periodically.
