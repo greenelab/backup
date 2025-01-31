@@ -17,6 +17,8 @@ GitHub also allows you to [configure webhooks at an organization level](https://
 
 Combining these two features, you can easily set up automatic archival for all of your org's repos:
 
+### Steps
+
 1. Go to your GitHub organization's settings.
 2. Look for the "webhooks" settings.
 3. Add a new webhook.
